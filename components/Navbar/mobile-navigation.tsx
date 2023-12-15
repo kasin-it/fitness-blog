@@ -14,18 +14,18 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 
-interface MobileNavigationInterface {
+interface MobileNavigationProps {
     className?: string
 }
 
-function MobileNavigation({ className }: MobileNavigationInterface) {
+function MobileNavigation({ className }: MobileNavigationProps) {
     const pathname = usePathname()
 
     return (
         <NavigationMenu className={className}>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-lg font-bold">
+                    <NavigationMenuTrigger className="bg-text-lg font-bold">
                         <Menu className="h-10 w-10" strokeWidth={0.8} />
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="px-12 py-6">

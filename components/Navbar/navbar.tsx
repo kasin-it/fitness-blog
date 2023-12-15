@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { LOGO } from "@/constants/logo"
 
 import { ModeToggle } from "../ui/mode-toggle"
 import MobileNavigation from "./mobile-navigation"
@@ -8,11 +8,7 @@ function Navbar() {
     return (
         <div className="flex w-full justify-center py-10">
             <nav className="flex w-full max-w-[1920px] items-center justify-between px-10">
-                <Link href={"/"}>
-                    <p className="text-xl font-bold">
-                        <span className="text-green-700">Fitness</span>Blog
-                    </p>
-                </Link>
+                {LOGO}
                 <NavRoutes className="hidden md:inline-flex" />
                 <div className="items flex">
                     <MobileNavigation className="block md:hidden" />

@@ -6,11 +6,11 @@ import { ROUTES } from "@/constants/routes"
 
 import { cn } from "@/lib/utils"
 
-interface NavRoutesInterface {
+interface NavRoutesProps {
     className?: string
 }
 
-function NavRoutes({ className }: NavRoutesInterface) {
+function NavRoutes({ className }: NavRoutesProps) {
     const pathname = usePathname()
     return (
         <ul className={cn("inline-flex space-x-10", className)}>
