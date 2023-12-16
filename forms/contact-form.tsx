@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { AlertCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -9,14 +10,20 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useToast } from "@/components/ui/use-toast"
 
 type FormData = z.infer<typeof formValidationSchema>
 const formValidationSchema = z.object({
-    email: z.string().email(),
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    message: z.string().min(1),
+    email: z.string().email("Email is required"),
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    message: z.string().min(1, "Message name is required"),
 })
 
 const ContactForm = () => {
@@ -65,44 +72,147 @@ const ContactForm = () => {
             <div className="flex w-full flex-col gap-4 sm:flex-row">
                 <div className="w-full">
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input
-                        id="firstName"
-                        placeholder="John"
-                        type="text"
-                        {...register("firstName")}
-                        disabled={loading}
-                    />
+                    <div className="relative">
+                        <Input
+                            id="firstName"
+                            placeholder="John"
+                            type="text"
+                            autoCapitalize="none"
+                            autoComplete="email"
+                            autoCorrect="off"
+                            {...register("firstName")}
+                            disabled={loading}
+                        />
+                        {errors.firstName && (
+                            <div
+                                className="absolute"
+                                // className="absolute right-[10px] top-[10px]"
+                                style={{ right: "10px", top: "10px" }}
+                            >
+                                <TooltipProvider delayDuration={100}>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <AlertCircle
+                                                size={18}
+                                                stroke="red"
+                                            />
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>{errors.firstName.message}</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className="w-full">
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input
-                        id="lastName"
-                        placeholder="Wick"
-                        type="text"
-                        {...register("lastName")}
-                        disabled={loading}
-                    />
+                    <div className="relative">
+                        <Input
+                            id="lastName"
+                            placeholder="Wick"
+                            type="text"
+                            autoCapitalize="none"
+                            autoComplete="email"
+                            autoCorrect="off"
+                            {...register("lastName")}
+                            disabled={loading}
+                        />
+                        {errors.lastName && (
+                            <div
+                                className="absolute"
+                                // className="absolute right-[10px] top-[10px]"
+                                style={{ right: "10px", top: "10px" }}
+                            >
+                                <TooltipProvider delayDuration={100}>
+                                    <Tooltip>
+                                        <TooltipTrigger>
+                                            <AlertCircle
+                                                size={18}
+                                                stroke="red"
+                                            />
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                            <p>{errors.lastName.message}</p>
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </TooltipProvider>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
             <div>
                 <Label htmlFor="email">Email</Label>
-                <Input
-                    id="email"
-                    placeholder="JohnWick33@mail.com"
-                    type="email"
-                    {...register("email")}
-                    disabled={loading}
-                />
+
+                <div className="relative">
+                    <Input
+                        id="email"
+                        placeholder="JohnWick33@mail.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        disabled={loading}
+                        {...register("email")}
+                        className={`${
+                            errors.email ? "border border-red-500 pr-10" : ""
+                        }`}
+                    />
+                    {errors.email && (
+                        <div
+                            className="absolute"
+                            // className="absolute right-[10px] top-[10px]"
+                            style={{ right: "10px", top: "10px" }}
+                        >
+                            <TooltipProvider delayDuration={100}>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <AlertCircle size={18} stroke="red" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{errors.email.message}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    )}
+                </div>
             </div>
+
             <div>
                 <Label>Message</Label>
-                <Textarea
-                    id="message"
-                    placeholder="Your message"
-                    {...register("message")}
-                    disabled={loading}
-                    rows={10}
-                ></Textarea>
+                <div className="relative">
+                    <Textarea
+                        id="message"
+                        placeholder="Your message"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        {...register("message")}
+                        disabled={loading}
+                        rows={10}
+                    />
+                    {errors.message && (
+                        <div
+                            className="absolute"
+                            // className="absolute right-[10px] top-[10px]"
+                            style={{ right: "10px", top: "10px" }}
+                        >
+                            <TooltipProvider delayDuration={100}>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <AlertCircle size={18} stroke="red" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{errors.message.message}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="w-full">
                 <Button className="w-full" disabled={loading}>

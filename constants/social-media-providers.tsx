@@ -21,6 +21,6 @@ export const SOCIAL_MEDIA_PROVIDERS_ICONS = [
     {
         src: <FaXTwitter />,
         href: SocialMediaLinks.X,
-        provider: "tiktok",
+        provider: "x",
     },
 ] as const

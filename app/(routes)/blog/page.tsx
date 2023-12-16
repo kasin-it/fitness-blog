@@ -33,7 +33,7 @@ function BlogPage() {
                     <Suspense
                         fallback={<Skeleton className="h-[30px] w-[100px]" />}
                     >
-                        <MoreTopics />
+                        {/* <BlogMoreTopics topics={["dsf", "sdfsdf". "sdfsdf"]}  /> */}
                     </Suspense>
 
                     <div className="flex w-full max-w-sm items-center space-x-2">
@@ -42,12 +42,7 @@ function BlogPage() {
                             placeholder="Search..."
                             type="search"
                         />
-                        <Button
-                            className="bg-blue-500 hover:bg-blue-700"
-                            variant="default"
-                        >
-                            Go
-                        </Button>
+                        <Button variant="default">Search</Button>
                     </div>
                 </section>
             </Container>

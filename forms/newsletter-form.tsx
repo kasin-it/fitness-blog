@@ -2,18 +2,24 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { AlertCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useToast } from "@/components/ui/use-toast"
 
 type FormData = z.infer<typeof formValidationSchema>
 const formValidationSchema = z.object({
-    email: z.string().email(),
+    email: z.string().email("Email is required"),
 })
 
 const NewsletterForm = () => {
@@ -60,13 +66,40 @@ const NewsletterForm = () => {
         >
             <div>
                 <Label htmlFor="email">Email</Label>
-                <Input
-                    id="email"
-                    placeholder="JohnWick33@mail.com"
-                    type="email"
-                    {...register("email")}
-                    disabled={loading}
-                />
+
+                <div className="relative">
+                    <Input
+                        id="email"
+                        placeholder="JohnWick33@mail.com"
+                        type="email"
+                        autoCapitalize="none"
+                        autoComplete="email"
+                        autoCorrect="off"
+                        disabled={loading}
+                        {...register("email")}
+                        className={`${
+                            errors.email ? "border border-red-500 pr-10" : ""
+                        }`}
+                    />
+                    {errors.email && (
+                        <div
+                            className="absolute"
+                            // className="absolute right-[10px] top-[10px]"
+                            style={{ right: "10px", top: "10px" }}
+                        >
+                            <TooltipProvider delayDuration={100}>
+                                <Tooltip>
+                                    <TooltipTrigger>
+                                        <AlertCircle size={18} stroke="red" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{errors.email.message}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="w-full">
                 <Button className="w-full" disabled={loading}>
