@@ -1,6 +1,6 @@
 // ADD ISR
 
-function SingleArticlePage() {
-    return <div>SingleArticlePage</div>
+function SinglePostPage() {
+    return <div>SinglePostPage</div>
 }
-export default SingleArticlePage
+export default SinglePostPage

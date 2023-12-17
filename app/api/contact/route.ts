@@ -15,8 +15,8 @@ const ratelimit = new Ratelimit({
 //     port: 465,
 //     host: "smtp.gmail.com",
 //     auth: {
-//         user: process.env.USER,
-//         pass: process.env.PASSWORD,
+//         user: process.env.EMAIL_CREDENTIALS,
+//         pass: process.env.PASSWORD_CREDENTIALS,
 //     },
 //     secure: true,
 // })

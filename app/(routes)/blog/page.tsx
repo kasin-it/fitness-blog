@@ -1,50 +1,15 @@
-import { Suspense } from "react"
-
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import Container from "@/components/ui/container"
-import { Input } from "@/components/ui/input"
-import { Skeleton } from "@/components/ui/skeleton"
-import BlogMoreTopics from "@/components/blog-more-topics"
+import BlogAllPosts from "@/components/blog-all-posts"
+import BlogFeaturedPosts from "@/components/blog-featured-posts"
+import BlogSearch from "@/components/blog-search"
 
 function BlogPage() {
     return (
         <main className="flex w-full justify-center">
             <Container>
-                <section className="container mx-auto px-4 py-10 md:px-6">
-                    <h2 className="mb-4 text-2xl font-bold">Search Topics</h2>
-                    <div className="space-x-2">
-                        <Badge className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700">
-                            Education
-                        </Badge>
-                        <Badge className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700">
-                            Environment
-                        </Badge>
-                        <Badge className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700">
-                            Politics
-                        </Badge>
-                        <Badge className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700">
-                            Sports
-                        </Badge>
-                        <Badge className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700">
-                            Travel
-                        </Badge>
-                    </div>
-                    <Suspense
-                        fallback={<Skeleton className="h-[30px] w-[100px]" />}
-                    >
-                        {/* <BlogMoreTopics topics={["dsf", "sdfsdf". "sdfsdf"]}  /> */}
-                    </Suspense>
-
-                    <div className="flex w-full max-w-sm items-center space-x-2">
-                        <Input
-                            className="flex-grow"
-                            placeholder="Search..."
-                            type="search"
-                        />
-                        <Button variant="default">Search</Button>
-                    </div>
-                </section>
+                <BlogSearch />
+                <BlogFeaturedPosts />
+                <BlogAllPosts />
             </Container>
         </main>
     )

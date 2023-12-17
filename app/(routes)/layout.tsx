@@ -4,9 +4,9 @@ import { Roboto_Condensed } from "next/font/google"
 import "../globals.css"
 
 import { ThemeProvider } from "@/providers/theme-provider"
+import { Toaster } from "@/providers/toaster"
 
 import { cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
 import Footer from "@/components/Footer/footer"
 import Navbar from "@/components/Navbar/navbar"
 import TailwindIndicator from "@/components/tailwind-indicator"

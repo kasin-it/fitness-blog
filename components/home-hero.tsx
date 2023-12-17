@@ -19,7 +19,7 @@ function HomeHero() {
                         alt="deadlift image"
                         loading="eager"
                         priority={true}
-                        className="absolute -right-6 top-7 w-[250px] sm:-right-7 sm:top-8 sm:w-auto md:top-10 lg:right-10 lg:top-16"
+                        className="absolute -right-6 top-7 w-[250px] sm:-right-7 sm:top-8 sm:w-[463px] md:top-10 lg:right-10 lg:top-16"
                     />
                 </div>
                 <p className="max-w-[360px] px-10 pt-24 text-center font-medium text-muted-foreground sm:max-w-[660px] sm:pt-64 sm:text-xl lg:pt-52">
