@@ -4,20 +4,20 @@ import { Navigation } from "@/enums/navigation"
 
 import {
     Card,
-    CardDescription,
+    CardContent,
     CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
+import { Badge } from "./badge"
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "./tooltip"
-import Topics from "./topics"
 
 interface PostCardProps {
     title: string
@@ -49,17 +49,20 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                 )}
                 <CardHeader className="space-y-5">
                     <CardTitle>{title}</CardTitle>
-                    <CardDescription className="flex flex-wrap gap-3">
-                        <Topics items={topics} />
-                    </CardDescription>
+
+                    <CardContent className="flex flex-wrap gap-3 px-0">
+                        {topics.map((topic) => (
+                            <Badge
+                                key={topic}
+                                className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-200"
+                            >
+                                {topic}
+                            </Badge>
+                        ))}
+                    </CardContent>
                 </CardHeader>
                 <CardFooter>
-                    <div className="flex items-center space-x-2">
-                        <p className="border-r-2 py-2 pr-2">
-                            <span className="text-muted-foreground">
-                                {date}
-                            </span>
-                        </p>
+                    <div className="flex w-full items-center justify-start space-x-2">
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger>
@@ -71,10 +74,13 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                                     </Avatar>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>{author.name}</p>
+                                    <div>{author.name}</div>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>
+                        <div className="border-l-2 pl-2 text-muted-foreground">
+                            {date}
+                        </div>
                     </div>
                 </CardFooter>
             </Card>

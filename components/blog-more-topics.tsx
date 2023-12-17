@@ -31,7 +31,7 @@ function BlogMoreTopics({ topics, counter }: BlogMoreTopicsProps) {
                     <SheetTitle>Edit profile</SheetTitle>
                     <SheetDescription>
                         Make changes to your profile here. Click save when
-                        you're done.
+                        you&apos;re done.
                     </SheetDescription>
                 </SheetHeader>
 

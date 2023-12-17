@@ -4,7 +4,6 @@ import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Skeleton } from "./ui/skeleton"
-import Topics from "./ui/topics"
 
 const MAX_TOPICS = 6
 
@@ -35,7 +34,14 @@ function BlogSearch() {
             <h2 className="mb-4 text-2xl font-bold">Search Topics</h2>
             <div className="flex justify-between">
                 <div className="flex flex-wrap gap-2">
-                    <Topics items={limitedTopics} />
+                    {limitedTopics.map((topic) => (
+                        <Badge
+                            key={topic}
+                            className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400"
+                        >
+                            {topic}
+                        </Badge>
+                    ))}
                     <BlogMoreTopics
                         topics={TOPICS}
                         counter={TOPICS.length - limitedTopics.length}

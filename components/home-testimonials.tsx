@@ -7,20 +7,20 @@ function HomeTestimonials() {
         {
             name: "Emma",
             content: "very good trainer!",
-            img: <div className="h-[100px] w-[100px] bg-blue-500"></div>,
+            img: "#",
             date: "12/04/2023",
         },
         {
             name: "Emma",
             content:
                 " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum impedit, voluptatibus veniam eum distinctio totam laborum quod quos itaque tenetur architecto natus doloribus beatae consequuntur obcaecati deserunt inventore illum. Ducimus.",
-            img: <div className="h-[100px] w-[100px] bg-blue-500"></div>,
+            img: "#",
             date: "12/04/2023",
         },
         {
             name: "Emma",
             content: "very good trainer!",
-            img: <div className="h-[100px] w-[100px] bg-blue-500"></div>,
+            img: "#",
             date: "12/04/2023",
         },
     ]
@@ -32,7 +32,7 @@ function HomeTestimonials() {
                     <h1 className="text-4xl font-bold italic text-green-600 lg:text-7xl">
                         Testimonials
                     </h1>
-                    <div className="grid w-full grid-cols-1 place-items-center gap-4 lg:grid-cols-3">
+                    <div className="place-items-top grid w-full grid-cols-1 gap-4 lg:grid-cols-3">
                         {REVIEWS.map((review) => (
                             <HomeTestimonialsReview
                                 name={review.name}
