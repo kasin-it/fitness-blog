@@ -28,12 +28,24 @@ function BlogMoreTopics({ topics, counter }: BlogMoreTopicsProps) {
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Edit profile</SheetTitle>
+                    <SheetTitle>
+                        Choose topic that is intresting you!
+                    </SheetTitle>
                     <SheetDescription>
                         Make changes to your profile here. Click save when
                         you&apos;re done.
                     </SheetDescription>
                 </SheetHeader>
+                <div className="flex flex-wrap gap-2">
+                    {topics.map((topic) => (
+                        <Badge
+                            key={topic}
+                            className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400"
+                        >
+                            {topic}
+                        </Badge>
+                    ))}
+                </div>
 
                 <SheetFooter>
                     <SheetClose asChild>

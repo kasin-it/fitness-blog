@@ -6,7 +6,7 @@ import BlogSearch from "@/components/blog-search"
 function BlogPage() {
     return (
         <main className="flex w-full justify-center">
-            <Container>
+            <Container className="space-y-10">
                 <BlogSearch />
                 <BlogFeaturedPosts />
                 <BlogAllPosts />

@@ -50,7 +50,7 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                 <CardHeader className="space-y-5">
                     <CardTitle>{title}</CardTitle>
 
-                    <CardContent className="flex flex-wrap gap-3 px-0">
+                    <CardContent className="flex flex-wrap gap-3 px-0 pb-0">
                         {topics.map((topic) => (
                             <Badge
                                 key={topic}

@@ -30,10 +30,9 @@ function BlogSearch() {
     const limitedTopics = TOPICS.slice(0, MAX_TOPICS)
 
     return (
-        <section className="flex w-full flex-col gap-2 py-10">
-            <h2 className="mb-4 text-2xl font-bold">Search Topics</h2>
-            <div className="flex justify-between">
-                <div className="flex flex-wrap gap-2">
+        <section className="pt flex w-full flex-col gap-2">
+            <div className="flex flex-col items-center justify-center gap-5 xl:flex-row xl:justify-between">
+                <div className="flex flex-wrap justify-center gap-2 px-2">
                     {limitedTopics.map((topic) => (
                         <Badge
                             key={topic}
@@ -42,10 +41,12 @@ function BlogSearch() {
                             {topic}
                         </Badge>
                     ))}
-                    <BlogMoreTopics
-                        topics={TOPICS}
-                        counter={TOPICS.length - limitedTopics.length}
-                    />
+                    {limitedTopics.length < TOPICS.length && (
+                        <BlogMoreTopics
+                            topics={TOPICS}
+                            counter={TOPICS.length - limitedTopics.length}
+                        />
+                    )}
                 </div>
 
                 <div className="flex w-full max-w-sm items-center space-x-2">
