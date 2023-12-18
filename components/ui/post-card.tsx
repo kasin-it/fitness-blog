@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Navigation } from "@/enums/navigation"
+import tinydate from "tinydate"
 
 import {
     Card,
@@ -27,11 +28,16 @@ interface PostCardProps {
     topics: string[]
     author: {
         name: string
-        img: string
+        description?: string
+        image: string
     }
 }
 
 function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
+    const dataBlueprint = tinydate("{DD}/{MM}/{YYYY}")
+
+    const formattedDate = dataBlueprint(new Date(date))
+
     return (
         <Link href={Navigation.Blog + `/${slug}`}>
             <Card className="overflow-hidden">
@@ -67,7 +73,7 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                             <Tooltip>
                                 <TooltipTrigger>
                                     <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
+                                        <AvatarImage src={author.image} />
                                         <AvatarFallback>
                                             {author.name[0]}
                                         </AvatarFallback>
@@ -79,7 +85,7 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                             </Tooltip>
                         </TooltipProvider>
                         <div className="border-l-2 pl-2 text-muted-foreground">
-                            {date}
+                            {formattedDate}
                         </div>
                     </div>
                 </CardFooter>

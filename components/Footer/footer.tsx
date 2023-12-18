@@ -75,9 +75,9 @@ function Footer() {
     return (
         <div className="flex w-full justify-center py-24">
             <Container>
-                <footer className="flex w-full max-w-[1920px] flex-wrap justify-between px-12 md:px-24">
+                <footer className="flex w-full max-w-[1920px] flex-wrap justify-between gap-10 px-3 sm:px-12 md:px-24">
                     <div className="flex w-full flex-col items-start pb-6 md:w-auto">
-                        <div className="flex w-full items-start justify-between space-y-4 md:flex-col">
+                        <div className="flex w-full flex-col items-start justify-between space-y-4 sm:flex-row md:flex-col">
                             <div>
                                 {LOGO}
                                 <p className="text-sm">©2023</p>

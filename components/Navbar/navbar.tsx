@@ -7,7 +7,7 @@ import NavRoutes from "./nav-routes"
 function Navbar() {
     return (
         <div className="flex w-full justify-center py-10">
-            <nav className="flex w-full max-w-[1920px] items-center justify-between px-10">
+            <nav className="flex w-full max-w-[1920px] items-center justify-between px-3 sm:px-10">
                 {LOGO}
                 <NavRoutes className="hidden md:inline-flex" />
                 <div className="items flex">

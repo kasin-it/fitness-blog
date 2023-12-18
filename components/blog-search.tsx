@@ -1,63 +1,172 @@
-import dynamic from "next/dynamic"
+"use client"
+
+import { useEffect, useState } from "react"
+import { getPosts } from "@/actions/posts"
+import gym from "@/public/gym.webp"
+import _ from "lodash"
+import { Search } from "lucide-react"
+
+import { cn } from "@/lib/utils"
 
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
+import { Label } from "./ui/label"
+import PostCard from "./ui/post-card"
+import { Separator } from "./ui/separator"
 import { Skeleton } from "./ui/skeleton"
 
-const MAX_TOPICS = 6
+interface BlogSearchProps {
+    topics: string[]
+}
 
-const TOPICS = [
-    "strfength",
-    "strfeng4h",
-    "strerength",
-    "strefn5gth",
-    "sttrfength",
-    "strfentgth",
-    "sttrength",
-    "strefngtth",
-]
+function BlogSearch({ topics }: BlogSearchProps) {
+    const [query, setQuery] = useState("")
+    const [isSearchResultsHidden, setIsSearchResultsHidden] = useState(true)
+    const [isSearchHidden, setIsSearchHidden] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
+    const [posts, setPosts] = useState([])
+    const [topicsFilter, setTopicsFilter] = useState<string[]>([])
 
-const BlogMoreTopics = dynamic(() => import("@/components/blog-more-topics"), {
-    loading: () => (
-        <Skeleton className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400">
-            Show More
-        </Skeleton>
-    ),
-})
+    const toggleSearchHiddenClick = () => {
+        setIsSearchHidden((prev) => !prev)
+        setQuery("")
+        setPosts([])
+    }
 
-function BlogSearch() {
-    const limitedTopics = TOPICS.slice(0, MAX_TOPICS)
+    const renderPostsSkeletons = () => {
+        return Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton key={index} className="h-[400px] w-full sm:h-[500px]" />
+        ))
+    }
+
+    const handleTopicClick = (topic: string) => {
+        if (topicsFilter.includes(topic)) {
+            setTopicsFilter((prevTopicsFilter) =>
+                prevTopicsFilter.filter((el) => el !== topic)
+            )
+        } else {
+            setTopicsFilter((prevTopicsFilter) => [...prevTopicsFilter, topic])
+        }
+    }
+
+    const handleQueryChange = (value: string) => {
+        setQuery(value)
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // getPosts()
+            } catch (error) {
+                console.error("[BLOG] Error fetching data:", error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        if (query != "" || topicsFilter.length > 0) {
+            setIsSearchResultsHidden(false)
+        } else {
+            setIsSearchResultsHidden(true)
+        }
+        setIsLoading(true)
+
+        const debouncedFetch = _.debounce(() => {
+            fetchData()
+        }, 1000)
+        debouncedFetch()
+
+        return () => {
+            debouncedFetch.cancel()
+        }
+    }, [query, topicsFilter])
 
     return (
-        <section className="pt flex w-full flex-col gap-2">
-            <div className="flex flex-col items-center justify-center gap-5 xl:flex-row xl:justify-between">
-                <div className="flex flex-wrap justify-center gap-2 px-2">
-                    {limitedTopics.map((topic) => (
-                        <Badge
-                            key={topic}
-                            className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400"
-                        >
-                            {topic}
-                        </Badge>
-                    ))}
-                    {limitedTopics.length < TOPICS.length && (
-                        <BlogMoreTopics
-                            topics={TOPICS}
-                            counter={TOPICS.length - limitedTopics.length}
-                        />
-                    )}
-                </div>
-
-                <div className="flex w-full max-w-sm items-center space-x-2">
-                    <Input
-                        className="flex-grow"
-                        placeholder="Search..."
-                        type="search"
-                    />
-                    <Button variant="default">Search</Button>
-                </div>
+        <section className="pt flex w-full flex-col gap-10">
+            <div className="flex w-full justify-end">
+                <Button onClick={toggleSearchHiddenClick}>
+                    <Search />
+                </Button>
             </div>
+            {isSearchHidden ? null : (
+                <>
+                    <div className="flex flex-col items-center justify-center gap-5 xl:justify-between">
+                        <Input
+                            className="w-full max-w-lg"
+                            placeholder="Search..."
+                            type="search"
+                            id="search"
+                            onChange={(e) => handleQueryChange(e.target.value)}
+                        />
+                        <p className="text-md font-bold">Topics:</p>
+                        <div className="flex max-w-xl flex-wrap justify-center gap-2 px-2">
+                            {topics.map((topic) => (
+                                <Badge
+                                    key={topic}
+                                    className={cn(
+                                        "cursor-pointer rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400",
+                                        topicsFilter.includes(topic)
+                                            ? "opacity-50"
+                                            : null
+                                    )}
+                                    onClick={() => handleTopicClick(topic)}
+                                >
+                                    {topic}
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
+                    {!isSearchResultsHidden && (
+                        <>
+                            <Separator />
+                            <h1 className="text-5xl font-bold">Search</h1>
+                            <Separator />
+                            <div className="grid place-items-center gap-10 md:grid-cols-2">
+                                {isLoading ? (
+                                    renderPostsSkeletons()
+                                ) : (
+                                    <>
+                                        <PostCard
+                                            title={"Benchpress improvemnt!"}
+                                            slug={"dsfsdfsdf"}
+                                            date={"12/3/4"}
+                                            topics={["strngth", "sdfsd"]}
+                                            img={gym.src}
+                                            author={{
+                                                name: "marcin",
+                                                image: gym.src,
+                                            }}
+                                        />
+                                        <PostCard
+                                            title={"Benchpress improvemnt!"}
+                                            slug={"dsfsdfsdf"}
+                                            date={"12/3/4"}
+                                            topics={["strngth", "sdfsd"]}
+                                            img={gym.src}
+                                            author={{
+                                                name: "marcin",
+                                                image: gym.src,
+                                            }}
+                                        />
+                                        <PostCard
+                                            title={"Benchpress improvemnt!"}
+                                            slug={"dsfsdfsdf"}
+                                            date={"12/3/4"}
+                                            topics={["strngth", "sdfsd"]}
+                                            img={gym.src}
+                                            author={{
+                                                name: "marcin",
+                                                image: gym.src,
+                                            }}
+                                        />
+                                    </>
+                                )}
+                            </div>
+                        </>
+                    )}
+                </>
+            )}
         </section>
     )
 }
