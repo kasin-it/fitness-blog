@@ -13,7 +13,7 @@ interface GetPostsProps {
 }
 
 export async function getPosts({
-    isFeatured = false,
+    isFeatured = undefined,
     limit = 0,
 }: GetPostsProps) {
     const postsResponse = await client.getEntries({

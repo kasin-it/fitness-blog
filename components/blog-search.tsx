@@ -64,7 +64,6 @@ function BlogSearch({ topics }: BlogSearchProps) {
 
     useEffect(() => {
         const fetchMoreData = async () => {
-            console.log(page)
             try {
                 const params = new URLSearchParams()
 
@@ -95,7 +94,6 @@ function BlogSearch({ topics }: BlogSearchProps) {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log(page)
             try {
                 const params = new URLSearchParams()
 
@@ -122,7 +120,6 @@ function BlogSearch({ topics }: BlogSearchProps) {
         }
 
         const debouncedFetch = _.debounce(() => {
-            console.log("fetch")
             fetchData()
         }, 1000)
         debouncedFetch()

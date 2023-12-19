@@ -25,8 +25,6 @@ export async function GET(request: Request) {
         page * 10 + postsResponse.items.length < postsResponse.total
 
     const checkIfTopicInPost = (post: Post, topic: string) => {
-        console.log()
-
         return post.topics.some((topicItem: Topic) => {
             return topicItem.fields.name.toLowerCase() === topic.toLowerCase()
         })
