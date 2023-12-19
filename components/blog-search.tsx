@@ -93,7 +93,7 @@ function BlogSearch({ topics }: BlogSearchProps) {
 
     useEffect(() => {
         fetchMoreData(page)
-    }, [page])
+    }, [page, fetchMoreData])
 
     useEffect(() => {
         const fetchData = async () => {

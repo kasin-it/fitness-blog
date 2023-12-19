@@ -16,7 +16,7 @@ function HomeTestimonialsItem({ testimonial }: HomeTestimonialsItemProps) {
             {/* {testimonial.img} */}
             <CardHeader className="space-y-5">
                 <CardTitle>
-                    <div className="flex flex-col items-center justify-center gap-2">
+                    <div className="flex flex-col items-center justify-center gap-5">
                         <p className="text-sm text-muted-foreground">
                             {formattedDate}
                         </p>
