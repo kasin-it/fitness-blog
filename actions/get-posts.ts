@@ -9,29 +9,17 @@ const client = createClient({
 
 interface GetPostsProps {
     isFeatured?: boolean
-    slug?: string
     limit?: number
-    query?: string
-    topic?: string
-    page?: number
 }
 
 export async function getPosts({
     isFeatured = false,
-    slug = "",
     limit = 0,
-    query = "",
-    topic = "",
-    page = 0,
 }: GetPostsProps) {
     const postsResponse = await client.getEntries({
         content_type: "post",
         limit: limit,
         "fields.featured": isFeatured,
-        "fields.slug": slug,
-        "fields.topics": topic,
-        query: query,
-        skip: page * 10,
     })
 
     let posts: Post[] = []

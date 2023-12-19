@@ -16,7 +16,7 @@ export async function getTopics() {
 
     topicsResponse.items.forEach((topic) => {
         //@ts-ignore
-        topics.push(topic)
+        topics.push(topic.fields)
     })
 
     return topics

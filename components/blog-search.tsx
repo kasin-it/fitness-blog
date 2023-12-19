@@ -1,10 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import gym from "@/public/gym.webp"
+import axios from "axios"
 import _ from "lodash"
 import { Search } from "lucide-react"
 
+import { Post } from "@/types/post"
 import { Topic } from "@/types/topic"
 import { cn } from "@/lib/utils"
 
@@ -24,28 +26,35 @@ function BlogSearch({ topics }: BlogSearchProps) {
     const [isSearchResultsHidden, setIsSearchResultsHidden] = useState(true)
     const [isSearchHidden, setIsSearchHidden] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
-    const [posts, setPosts] = useState([])
-    const [topicsFilter, setTopicsFilter] = useState<Topic[]>([])
+    const [isLoadingMore, setIsLoadingMore] = useState(false)
+    const [posts, setPosts] = useState<Post[]>([])
+    const [topicFilter, setTopicFilter] = useState<Topic | undefined>()
+    const [fetchMore, setFetchMore] = useState(true)
+    const [page, setPage] = useState(0)
 
     const toggleSearchHiddenClick = () => {
         setIsSearchHidden((prev) => !prev)
         setQuery("")
         setPosts([])
+        setTopicFilter(undefined)
     }
 
     const renderPostsSkeletons = () => {
-        return Array.from({ length: 6 }).map((_, index) => (
+        return Array.from({ length: 10 }).map((_, index) => (
             <Skeleton key={index} className="h-[400px] w-full sm:h-[500px]" />
         ))
     }
 
+    const handleFetchMore = () => {
+        setPage((prev) => prev + 1)
+        setIsLoadingMore(true)
+    }
+
     const handleTopicClick = (topic: Topic) => {
-        if (topicsFilter.includes(topic)) {
-            setTopicsFilter((prevTopicsFilter) =>
-                prevTopicsFilter.filter((el) => el.name !== topic.name)
-            )
+        if (topicFilter?.name == topic.name) {
+            setTopicFilter(undefined)
         } else {
-            setTopicsFilter((prevTopicsFilter) => [...prevTopicsFilter, topic])
+            setTopicFilter(topic)
         }
     }
 
@@ -54,9 +63,57 @@ function BlogSearch({ topics }: BlogSearchProps) {
     }
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchMoreData = async () => {
+            console.log(page)
             try {
-                // getPosts()
+                const params = new URLSearchParams()
+
+                if (query) {
+                    params.append("query", query)
+                }
+
+                if (topicFilter && topicFilter.name) {
+                    params.append("topic", topicFilter.name)
+                }
+
+                params.append("page", page.toString())
+
+                const res = await axios.get("/api/posts", { params })
+
+                const { posts, isMoreToFetch } = res.data
+                setPosts((prevPosts) => [...prevPosts, ...posts])
+                setFetchMore(isMoreToFetch)
+            } catch (error) {
+                console.error("[BLOG] Error fetching data:", error)
+            } finally {
+                setIsLoadingMore(false)
+            }
+        }
+
+        fetchMoreData()
+    }, [page])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log(page)
+            try {
+                const params = new URLSearchParams()
+
+                if (query) {
+                    params.append("query", query)
+                }
+
+                if (topicFilter && topicFilter.name) {
+                    params.append("topic", topicFilter.name)
+                }
+
+                params.append("page", page.toString())
+
+                const res = await axios.get("/api/posts", { params })
+
+                const { posts, isMoreToFetch } = res.data
+                setPosts(posts)
+                setFetchMore(isMoreToFetch)
             } catch (error) {
                 console.error("[BLOG] Error fetching data:", error)
             } finally {
@@ -64,22 +121,24 @@ function BlogSearch({ topics }: BlogSearchProps) {
             }
         }
 
-        if (query != "" || topicsFilter.length > 0) {
-            setIsSearchResultsHidden(false)
-        } else {
-            setIsSearchResultsHidden(true)
-        }
-        setIsLoading(true)
-
         const debouncedFetch = _.debounce(() => {
+            console.log("fetch")
             fetchData()
         }, 1000)
         debouncedFetch()
 
+        if (query !== "" || topicFilter) {
+            setIsSearchResultsHidden(false)
+        } else {
+            setIsSearchResultsHidden(true)
+        }
+
+        setIsLoading(true)
+
         return () => {
             debouncedFetch.cancel()
         }
-    }, [query, topicsFilter])
+    }, [query, topicFilter])
 
     return (
         <section className="pt flex w-full flex-col gap-10">
@@ -100,12 +159,12 @@ function BlogSearch({ topics }: BlogSearchProps) {
                         />
                         <p className="text-md font-bold">Topics:</p>
                         <div className="flex max-w-xl flex-wrap justify-center gap-2 px-2">
-                            {topics.map((topic) => (
+                            {topics.map((topic: Topic) => (
                                 <Badge
                                     key={topic.name}
                                     className={cn(
                                         "cursor-pointer rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400",
-                                        topicsFilter.includes(topic)
+                                        topicFilter?.name == topic.name
                                             ? "opacity-50"
                                             : null
                                     )}
@@ -126,42 +185,28 @@ function BlogSearch({ topics }: BlogSearchProps) {
                                     renderPostsSkeletons()
                                 ) : (
                                     <>
-                                        <PostCard
-                                            title={"Benchpress improvemnt!"}
-                                            slug={"dsfsdfsdf"}
-                                            date={"12/3/4"}
-                                            topics={["strngth", "sdfsd"]}
-                                            img={gym.src}
-                                            author={{
-                                                name: "marcin",
-                                                image: gym.src,
-                                            }}
-                                        />
-                                        <PostCard
-                                            title={"Benchpress improvemnt!"}
-                                            slug={"dsfsdfsdf"}
-                                            date={"12/3/4"}
-                                            topics={["strngth", "sdfsd"]}
-                                            img={gym.src}
-                                            author={{
-                                                name: "marcin",
-                                                image: gym.src,
-                                            }}
-                                        />
-                                        <PostCard
-                                            title={"Benchpress improvemnt!"}
-                                            slug={"dsfsdfsdf"}
-                                            date={"12/3/4"}
-                                            topics={["strngth", "sdfsd"]}
-                                            img={gym.src}
-                                            author={{
-                                                name: "marcin",
-                                                image: gym.src,
-                                            }}
-                                        />
+                                        {posts &&
+                                            posts.map((post) => (
+                                                <PostCard
+                                                    key={post.title}
+                                                    post={post}
+                                                />
+                                            ))}
+                                        {posts.length === 0 && (
+                                            <p className="font-bold">
+                                                We didnt found what you were
+                                                looking for...
+                                            </p>
+                                        )}
                                     </>
                                 )}
+                                {isLoadingMore && renderPostsSkeletons()}
                             </div>
+                            {fetchMore && (
+                                <Button onClick={handleFetchMore}>
+                                    See More
+                                </Button>
+                            )}
                         </>
                     )}
                 </>

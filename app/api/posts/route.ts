@@ -1,7 +1,8 @@
-import { getPosts } from "@/actions/get-posts"
 import { createClient } from "contentful"
 
-import { Post } from "@/types/post"
+import { Post, Topic } from "@/types/post"
+
+import { Author } from "./../../../types/post"
 
 const client = createClient({
     space: process.env.CONTENFUL_SPACE_ID || "",
@@ -14,9 +15,35 @@ export async function GET(request: Request) {
     const topic = searchParams.get("topic") || ""
     const page = parseInt(searchParams.get("page") || "0") || 0
 
-    const posts = await getPosts({ query: query, topic: topic, page: page })
+    const postsResponse = await client.getEntries({
+        content_type: "post",
+        skip: page * 10,
+        query: query,
+    })
 
-    console.log(posts)
+    const isMoreToFetch =
+        page * 10 + postsResponse.items.length < postsResponse.total
 
-    return Response.json({ posts })
+    const checkIfTopicInPost = (post: Post, topic: string) => {
+        console.log()
+
+        return post.topics.some((topicItem: Topic) => {
+            return topicItem.fields.name.toLowerCase() === topic.toLowerCase()
+        })
+    }
+
+    let posts: Post[] = []
+
+    postsResponse.items.forEach((post) => {
+        // @ts-ignore
+        if (topic && checkIfTopicInPost(post.fields, topic)) {
+            //@ts-ignore
+            posts.push(post.fields)
+        } else if (!topic) {
+            // @ts-ignore
+            posts.push(post.fields)
+        }
+    })
+
+    return Response.json({ posts, isMoreToFetch })
 }

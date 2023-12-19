@@ -17,6 +17,8 @@ function BlogAllPosts({ allPosts }: BlogAllPostsProps) {
                 {allPosts.map((post) => (
                     <PostCard post={post} />
                 ))}
+
+                {/* <BlogAllPostsFetchMore /> */}
             </div>
         </section>
     )
