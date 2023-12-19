@@ -62,8 +62,8 @@ function BlogSearch({ topics }: BlogSearchProps) {
         setQuery(value)
     }
 
-    useEffect(() => {
-        const fetchMoreData = async () => {
+    const fetchMoreData = useCallback(
+        async (page: number) => {
             try {
                 const params = new URLSearchParams()
 
@@ -87,9 +87,12 @@ function BlogSearch({ topics }: BlogSearchProps) {
             } finally {
                 setIsLoadingMore(false)
             }
-        }
+        },
+        [query, topicFilter, setPosts, setFetchMore, setIsLoadingMore]
+    )
 
-        fetchMoreData()
+    useEffect(() => {
+        fetchMoreData(page)
     }, [page])
 
     useEffect(() => {
@@ -105,7 +108,7 @@ function BlogSearch({ topics }: BlogSearchProps) {
                     params.append("topic", topicFilter.name)
                 }
 
-                params.append("page", page.toString())
+                params.append("page", "0")
 
                 const res = await axios.get("/api/posts", { params })
 
