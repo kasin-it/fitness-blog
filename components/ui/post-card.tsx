@@ -1,8 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Navigation } from "@/enums/navigation"
-import tinydate from "tinydate"
 
+import { Post, Topic } from "@/types/post"
+import { formatDate } from "@/lib/utils"
 import {
     Card,
     CardContent,
@@ -21,30 +22,19 @@ import {
 } from "./tooltip"
 
 interface PostCardProps {
-    title: string
-    img?: string
-    slug: string
-    date: string
-    topics: string[]
-    author: {
-        name: string
-        description?: string
-        image: string
-    }
+    post: Post
 }
 
-function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
-    const dataBlueprint = tinydate("{DD}/{MM}/{YYYY}")
-
-    const formattedDate = dataBlueprint(new Date(date))
+function PostCard({ post }: PostCardProps) {
+    const formattedDate = formatDate(post.date)
 
     return (
-        <Link href={Navigation.Blog + `/${slug}`}>
+        <Link href={Navigation.Blog + `/${post.slug}`}>
             <Card className="overflow-hidden">
-                {img && (
+                {post.image?.fields.file.url && (
                     <div className="overflow-hidden">
                         <Image
-                            src={img}
+                            src={"http:" + post.image.fields.file.url}
                             height={0}
                             width={600}
                             style={{ height: "auto" }}
@@ -54,15 +44,15 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                     </div>
                 )}
                 <CardHeader className="space-y-5">
-                    <CardTitle>{title}</CardTitle>
+                    <CardTitle>{post.title}</CardTitle>
 
                     <CardContent className="flex flex-wrap gap-3 px-0 pb-0">
-                        {topics.map((topic) => (
+                        {post.topics?.map((topic: Topic) => (
                             <Badge
-                                key={topic}
+                                key={topic.fields.name}
                                 className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-200"
                             >
-                                {topic}
+                                {topic.fields.name}
                             </Badge>
                         ))}
                     </CardContent>
@@ -73,14 +63,19 @@ function PostCard({ title, img, topics, date, slug, author }: PostCardProps) {
                             <Tooltip>
                                 <TooltipTrigger>
                                     <Avatar>
-                                        <AvatarImage src={author.image} />
+                                        <AvatarImage
+                                            src={
+                                                post.author?.fields.image.fields
+                                                    .file.url
+                                            }
+                                        />
                                         <AvatarFallback>
-                                            {author.name[0]}
+                                            {post.author?.fields.name[0]}
                                         </AvatarFallback>
                                     </Avatar>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <div>{author.name}</div>
+                                    <div>{post.author?.fields.name}</div>
                                 </TooltipContent>
                             </Tooltip>
                         </TooltipProvider>

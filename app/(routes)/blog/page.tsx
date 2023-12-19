@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic"
+import { getPosts } from "@/actions/get-posts"
+import { getTopics } from "@/actions/get-topics"
 import { createClient } from "contentful"
 
-import { getListOfTopics } from "@/lib/utils"
+import { Post } from "@/types/post"
 import Container from "@/components/ui/container"
 import { Skeleton } from "@/components/ui/skeleton"
 import BlogAllPosts from "@/components/blog-all-posts"
@@ -13,35 +15,9 @@ const client = createClient({
 })
 
 async function BlogPage() {
-    const topicsResponse = await client.getEntries({
-        content_type: "topic",
-    })
-
-    const topics = getListOfTopics(topicsResponse.items)
-
-    const featuredPostsResponse = await client.getEntries({
-        content_type: "post",
-        limit: 5,
-        "fields.featured": true,
-    })
-
-    let featuredPosts: Post[] = []
-
-    featuredPostsResponse.items.forEach((post) => {
-        // @ts-ignore
-        featuredPosts.push(post.fields)
-    })
-
-    const allPostsResponse = await client.getEntries({
-        content_type: "post",
-    })
-
-    let allPosts: Post[] = []
-
-    allPostsResponse.items.forEach((post) => {
-        // @ts-ignore
-        allPosts.push(post.fields)
-    })
+    const topics = await getTopics()
+    const featuredPosts = await getPosts({ limit: 5, isFeatured: true })
+    const allPosts = await getPosts({ limit: 10 })
 
     const BlogSearch = dynamic(() => import("@/components/blog-search"), {
         // loading: () => (

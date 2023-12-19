@@ -1,4 +1,4 @@
-import { getImageSource } from "@/lib/utils"
+import { Testimonial } from "@/types/testimonial"
 import Container from "@/components/ui/container"
 
 import HomeTestimonialsItem from "./home-testimonials-item"
@@ -19,12 +19,7 @@ function HomeTestimonials({ testimonials }: HomeTestimonialsProps) {
                         {testimonials.map((testimonial) => (
                             <HomeTestimonialsItem
                                 key={testimonial.content}
-                                testimonial={{
-                                    name: testimonial.name,
-                                    date: testimonial.date,
-                                    content: testimonial.content,
-                                    image: getImageSource(testimonial.image),
-                                }}
+                                testimonial={testimonial}
                             />
                         ))}
                     </div>

@@ -1,10 +1,4 @@
-import gym from "@/public/gym.webp"
-
-import {
-    getAuthorProperties,
-    getImageSource,
-    getListOfTopics,
-} from "@/lib/utils"
+import { Post } from "@/types/post"
 
 import PostCard from "./ui/post-card"
 import { Separator } from "./ui/separator"
@@ -21,15 +15,7 @@ function BlogAllPosts({ allPosts }: BlogAllPostsProps) {
             <Separator />
             <div className="grid place-items-center gap-10 md:grid-cols-2">
                 {allPosts.map((post) => (
-                    <PostCard
-                        key={post.title}
-                        title={post.title}
-                        slug={post.slug}
-                        date={post.date}
-                        topics={getListOfTopics(post.topics)}
-                        img={getImageSource(post.image)}
-                        author={getAuthorProperties(post.author)}
-                    />
+                    <PostCard post={post} />
                 ))}
             </div>
         </section>

@@ -1,3 +1,4 @@
+import { getPosts } from "@/actions/get-posts"
 import { createClient } from "contentful"
 
 import { Post } from "@/types/post"
@@ -9,19 +10,13 @@ const client = createClient({
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
-    const query = searchParams.get("query")
-    const topics = searchParams.get("topics")
-    const page = searchParams.get("page")
+    const query = searchParams.get("query") || ""
+    const topic = searchParams.get("topic") || ""
+    const page = parseInt(searchParams.get("page") || "0") || 0
 
-    const postsResponse = await client.getEntries({
-        content_type: "post",
-    })
+    const posts = await getPosts({ query: query, topic: topic, page: page })
 
-    let posts: Post[] = []
-
-    postsResponse.items.forEach((post) => {
-        posts.push(post)
-    })
+    console.log(posts)
 
     return Response.json({ posts })
 }

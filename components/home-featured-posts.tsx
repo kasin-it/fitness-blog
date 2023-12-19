@@ -1,11 +1,7 @@
 import { title } from "process"
 import gym from "@/public/gym.webp"
 
-import {
-    getAuthorProperties,
-    getImageSource,
-    getListOfTopics,
-} from "@/lib/utils"
+import { Post } from "@/types/post"
 import Container from "@/components/ui/container"
 
 import PostCard from "./ui/post-card"
@@ -24,15 +20,7 @@ function HomeFeaturedPosts({ featuredPosts }: HomeFeaturedPostsProps) {
                     </h1>
                     <div className="grid w-full grid-cols-1 place-items-start gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-4">
                         {featuredPosts.map((post) => (
-                            <PostCard
-                                key={post.title}
-                                title={post.title}
-                                slug={post.slug}
-                                date={post.slug}
-                                topics={getListOfTopics(post.topics)}
-                                author={getAuthorProperties(post.author)}
-                                img={getImageSource(post.image)}
-                            />
+                            <PostCard post={post} key={post.title} />
                         ))}
                     </div>
                 </div>

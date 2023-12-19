@@ -1,8 +1,4 @@
-import {
-    getAuthorProperties,
-    getImageSource,
-    getListOfTopics,
-} from "@/lib/utils"
+import { Post } from "@/types/post"
 
 import PostCard from "./ui/post-card"
 import { Separator } from "./ui/separator"
@@ -20,52 +16,35 @@ function BlogFeaturedPosts({ featuredPosts }: BlogFeaturedPostsProps) {
             <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
                 {featuredPosts.length > 0 && (
                     <PostCard
-                        title={featuredPosts[0].title}
-                        slug={featuredPosts[0].slug}
-                        date={featuredPosts[0].date}
-                        topics={getListOfTopics(featuredPosts[0].topics)}
-                        img={getImageSource(featuredPosts[0].image)}
-                        author={getAuthorProperties(featuredPosts[0].author)}
+                        post={featuredPosts[0]}
+                        key={featuredPosts[0].title}
                     />
                 )}
 
                 {featuredPosts.length > 1 && (
                     <PostCard
-                        title={featuredPosts[1].title}
-                        slug={featuredPosts[1].slug}
-                        date={featuredPosts[1].date}
-                        topics={getListOfTopics(featuredPosts[1].topics)}
-                        img={getImageSource(featuredPosts[1].image)}
-                        author={getAuthorProperties(featuredPosts[1].author)}
+                        post={featuredPosts[1]}
+                        key={featuredPosts[1].title}
                     />
                 )}
             </div>
             <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
                 {featuredPosts.length > 2 && (
                     <PostCard
-                        title={featuredPosts[2].title}
-                        slug={featuredPosts[2].slug}
-                        date={featuredPosts[2].date}
-                        topics={getListOfTopics(featuredPosts[2].topics)}
-                        author={getAuthorProperties(featuredPosts[2].author)}
+                        post={featuredPosts[2]}
+                        key={featuredPosts[2].title}
                     />
                 )}
                 {featuredPosts.length > 3 && (
                     <PostCard
-                        title={featuredPosts[3].title}
-                        slug={featuredPosts[3].slug}
-                        date={featuredPosts[3].date}
-                        topics={getListOfTopics(featuredPosts[3].topics)}
-                        author={getAuthorProperties(featuredPosts[3].author)}
+                        post={featuredPosts[3]}
+                        key={featuredPosts[3].title}
                     />
                 )}
                 {featuredPosts.length > 4 && (
                     <PostCard
-                        title={featuredPosts[4].title}
-                        slug={featuredPosts[4].slug}
-                        date={featuredPosts[4].date}
-                        topics={getListOfTopics(featuredPosts[4].topics)}
-                        author={getAuthorProperties(featuredPosts[4].author)}
+                        post={featuredPosts[4]}
+                        key={featuredPosts[4].title}
                     />
                 )}
             </div>

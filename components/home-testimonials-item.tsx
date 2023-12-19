@@ -1,3 +1,5 @@
+import { Testimonial } from "@/types/testimonial"
+import { formatDate } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
@@ -7,6 +9,8 @@ interface HomeTestimonialsItemProps {
 }
 
 function HomeTestimonialsItem({ testimonial }: HomeTestimonialsItemProps) {
+    const formattedDate = formatDate(testimonial.date)
+
     return (
         <Card className="overflow-hidden">
             {/* {testimonial.img} */}
@@ -14,10 +18,14 @@ function HomeTestimonialsItem({ testimonial }: HomeTestimonialsItemProps) {
                 <CardTitle>
                     <div className="flex flex-col items-center justify-center gap-2">
                         <p className="text-sm text-muted-foreground">
-                            {testimonial.date}
+                            {formattedDate}
                         </p>
                         <Avatar className="h-[80px] w-[80px]">
-                            <AvatarImage src={testimonial.image} />
+                            <AvatarImage
+                                src={
+                                    "http:" + testimonial.image.fields.file.url
+                                }
+                            />
                             <AvatarFallback>
                                 {testimonial.name[0]}
                             </AvatarFallback>

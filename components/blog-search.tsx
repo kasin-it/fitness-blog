@@ -1,23 +1,22 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { getPosts } from "@/actions/posts"
 import gym from "@/public/gym.webp"
 import _ from "lodash"
 import { Search } from "lucide-react"
 
+import { Topic } from "@/types/topic"
 import { cn } from "@/lib/utils"
 
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { Label } from "./ui/label"
 import PostCard from "./ui/post-card"
 import { Separator } from "./ui/separator"
 import { Skeleton } from "./ui/skeleton"
 
 interface BlogSearchProps {
-    topics: string[]
+    topics: Topic[]
 }
 
 function BlogSearch({ topics }: BlogSearchProps) {
@@ -26,7 +25,7 @@ function BlogSearch({ topics }: BlogSearchProps) {
     const [isSearchHidden, setIsSearchHidden] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
     const [posts, setPosts] = useState([])
-    const [topicsFilter, setTopicsFilter] = useState<string[]>([])
+    const [topicsFilter, setTopicsFilter] = useState<Topic[]>([])
 
     const toggleSearchHiddenClick = () => {
         setIsSearchHidden((prev) => !prev)
@@ -40,10 +39,10 @@ function BlogSearch({ topics }: BlogSearchProps) {
         ))
     }
 
-    const handleTopicClick = (topic: string) => {
+    const handleTopicClick = (topic: Topic) => {
         if (topicsFilter.includes(topic)) {
             setTopicsFilter((prevTopicsFilter) =>
-                prevTopicsFilter.filter((el) => el !== topic)
+                prevTopicsFilter.filter((el) => el.name !== topic.name)
             )
         } else {
             setTopicsFilter((prevTopicsFilter) => [...prevTopicsFilter, topic])
@@ -103,7 +102,7 @@ function BlogSearch({ topics }: BlogSearchProps) {
                         <div className="flex max-w-xl flex-wrap justify-center gap-2 px-2">
                             {topics.map((topic) => (
                                 <Badge
-                                    key={topic}
+                                    key={topic.name}
                                     className={cn(
                                         "cursor-pointer rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400",
                                         topicsFilter.includes(topic)
@@ -112,7 +111,7 @@ function BlogSearch({ topics }: BlogSearchProps) {
                                     )}
                                     onClick={() => handleTopicClick(topic)}
                                 >
-                                    {topic}
+                                    {topic.name}
                                 </Badge>
                             ))}
                         </div>
