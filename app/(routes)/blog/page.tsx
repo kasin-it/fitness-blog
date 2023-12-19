@@ -19,20 +19,29 @@ async function BlogPage() {
 
     const topics = getListOfTopics(topicsResponse.items)
 
-    const postsResponse = await client.getEntries({
+    const featuredPostsResponse = await client.getEntries({
         content_type: "post",
         limit: 5,
         "fields.featured": true,
     })
 
-    let posts: Post[] = []
+    let featuredPosts: Post[] = []
 
-    postsResponse.items.forEach((post) => {
+    featuredPostsResponse.items.forEach((post) => {
         // @ts-ignore
-        posts.push(post.fields)
+        featuredPosts.push(post.fields)
     })
 
-    console.log(posts[0].author)
+    const allPostsResponse = await client.getEntries({
+        content_type: "post",
+    })
+
+    let allPosts: Post[] = []
+
+    allPostsResponse.items.forEach((post) => {
+        // @ts-ignore
+        allPosts.push(post.fields)
+    })
 
     const BlogSearch = dynamic(() => import("@/components/blog-search"), {
         // loading: () => (
@@ -46,8 +55,8 @@ async function BlogPage() {
         <main className="flex w-full justify-center">
             <Container className="space-y-10">
                 <BlogSearch topics={topics} />
-                <BlogFeaturedPosts featuredPosts={posts} />
-                <BlogAllPosts />
+                <BlogFeaturedPosts featuredPosts={featuredPosts} />
+                <BlogAllPosts allPosts={allPosts} />
             </Container>
         </main>
     )

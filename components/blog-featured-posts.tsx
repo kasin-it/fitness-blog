@@ -1,5 +1,3 @@
-import gym from "@/public/gym.webp"
-
 import {
     getAuthorProperties,
     getImageSource,
@@ -49,7 +47,6 @@ function BlogFeaturedPosts({ featuredPosts }: BlogFeaturedPostsProps) {
                         slug={featuredPosts[2].slug}
                         date={featuredPosts[2].date}
                         topics={getListOfTopics(featuredPosts[2].topics)}
-                        img={getImageSource(featuredPosts[2].image)}
                         author={getAuthorProperties(featuredPosts[2].author)}
                     />
                 )}
@@ -59,7 +56,6 @@ function BlogFeaturedPosts({ featuredPosts }: BlogFeaturedPostsProps) {
                         slug={featuredPosts[3].slug}
                         date={featuredPosts[3].date}
                         topics={getListOfTopics(featuredPosts[3].topics)}
-                        img={getImageSource(featuredPosts[3].image)}
                         author={getAuthorProperties(featuredPosts[3].author)}
                     />
                 )}
@@ -69,7 +65,6 @@ function BlogFeaturedPosts({ featuredPosts }: BlogFeaturedPostsProps) {
                         slug={featuredPosts[4].slug}
                         date={featuredPosts[4].date}
                         topics={getListOfTopics(featuredPosts[4].topics)}
-                        img={getImageSource(featuredPosts[4].image)}
                         author={getAuthorProperties(featuredPosts[4].author)}
                     />
                 )}

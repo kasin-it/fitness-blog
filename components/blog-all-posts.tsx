@@ -1,48 +1,36 @@
 import gym from "@/public/gym.webp"
 
+import {
+    getAuthorProperties,
+    getImageSource,
+    getListOfTopics,
+} from "@/lib/utils"
+
 import PostCard from "./ui/post-card"
 import { Separator } from "./ui/separator"
 
-function BlogAllPosts() {
+interface BlogAllPostsProps {
+    allPosts: Post[]
+}
+
+function BlogAllPosts({ allPosts }: BlogAllPostsProps) {
     return (
         <section className="flex w-full flex-col gap-10">
             <Separator />
             <h1 className="text-5xl font-bold">All posts</h1>
             <Separator />
             <div className="grid place-items-center gap-10 md:grid-cols-2">
-                <PostCard
-                    title={"Benchpress improvemnt!"}
-                    slug={"dsfsdfsdf"}
-                    date={"12/3/4"}
-                    topics={["strngth", "sdfsd"]}
-                    img={gym.src}
-                    author={{
-                        name: "marcin",
-                        img: gym.src,
-                    }}
-                />
-                <PostCard
-                    title={"Benchpress improvemnt!"}
-                    slug={"dsfsdfsdf"}
-                    date={"12/3/4"}
-                    topics={["strngth", "sdfsd"]}
-                    img={gym.src}
-                    author={{
-                        name: "marcin",
-                        img: gym.src,
-                    }}
-                />
-                <PostCard
-                    title={"Benchpress improvemnt!"}
-                    slug={"dsfsdfsdf"}
-                    date={"12/3/4"}
-                    topics={["strngth", "sdfsd"]}
-                    img={gym.src}
-                    author={{
-                        name: "marcin",
-                        img: gym.src,
-                    }}
-                />
+                {allPosts.map((post) => (
+                    <PostCard
+                        key={post.title}
+                        title={post.title}
+                        slug={post.slug}
+                        date={post.date}
+                        topics={getListOfTopics(post.topics)}
+                        img={getImageSource(post.image)}
+                        author={getAuthorProperties(post.author)}
+                    />
+                ))}
             </div>
         </section>
     )

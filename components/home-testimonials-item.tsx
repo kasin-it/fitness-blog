@@ -2,40 +2,36 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
-interface HomeTestimonialsReviewProps {
-    name: string
-    content: string
-    img: string
-    date: string
+interface HomeTestimonialsItemProps {
+    testimonial: Testimonial
 }
 
-function HomeTestimonialsReview({
-    name,
-    content,
-    img,
-    date,
-}: HomeTestimonialsReviewProps) {
+function HomeTestimonialsItem({ testimonial }: HomeTestimonialsItemProps) {
     return (
         <Card className="overflow-hidden">
-            {img && <div className="overflow-hidden"></div>}
+            {/* {testimonial.img} */}
             <CardHeader className="space-y-5">
                 <CardTitle>
                     <div className="flex flex-col items-center justify-center gap-2">
-                        <p className="text-sm text-muted-foreground">{date}</p>
+                        <p className="text-sm text-muted-foreground">
+                            {testimonial.date}
+                        </p>
                         <Avatar className="h-[80px] w-[80px]">
-                            <AvatarImage src={img} />
-                            <AvatarFallback>{name[0]}</AvatarFallback>
+                            <AvatarImage src={testimonial.image} />
+                            <AvatarFallback>
+                                {testimonial.name[0]}
+                            </AvatarFallback>
                         </Avatar>
-                        <p>{name}</p>
+                        <p>{testimonial.name}</p>
                     </div>
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex items-center justify-center">
                 <span className="px-10 text-lg italic text-green-600 dark:text-white">
-                    &ldquo;{content}&bdquo;
+                    &ldquo;{testimonial.content}&bdquo;
                 </span>
             </CardContent>
         </Card>
     )
 }
-export default HomeTestimonialsReview
+export default HomeTestimonialsItem

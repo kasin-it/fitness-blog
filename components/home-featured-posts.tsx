@@ -1,47 +1,20 @@
 import { title } from "process"
 import gym from "@/public/gym.webp"
 
+import {
+    getAuthorProperties,
+    getImageSource,
+    getListOfTopics,
+} from "@/lib/utils"
 import Container from "@/components/ui/container"
 
 import PostCard from "./ui/post-card"
 
-function HomeFeaturedPosts() {
-    const POSTS = [
-        {
-            title: "Why health is important?",
-            img: gym.src,
-            slug: "dsfsdfsdfsdfsdfsd",
-            topics: ["strength", "sdfsdf", "sdfsdf"],
-            date: "12/04/2004",
-            author: {
-                name: "Marcing",
-                img: gym.src,
-            },
-        },
-        {
-            title: "Why health is important?",
-            img: gym.src,
-            slug: "dsfsdfsdfsdfsdfsd",
-            topics: ["strength", "sdfsdf", "sdfsdf"],
-            date: "12/04/2004",
-            author: {
-                name: "Marcing",
-                img: gym.src,
-            },
-        },
-        {
-            title: "Why health is important?",
-            img: gym.src,
-            slug: "dsfsdfsdfsdfsdfsd",
-            topics: ["strength", "sdfsdf", "sdfsdf"],
-            date: "12/04/2004",
-            author: {
-                name: "Marcing",
-                img: gym.src,
-            },
-        },
-    ]
+interface HomeFeaturedPostsProps {
+    featuredPosts: Post[]
+}
 
+function HomeFeaturedPosts({ featuredPosts }: HomeFeaturedPostsProps) {
     return (
         <section className="flex w-full justify-center px-10 pt-48 md:px-0">
             <Container>
@@ -50,8 +23,16 @@ function HomeFeaturedPosts() {
                         Featured Posts
                     </h1>
                     <div className="grid w-full grid-cols-1 place-items-start gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-4">
-                        {POSTS.map((post) => (
-                            <PostCard {...post} key={title} />
+                        {featuredPosts.map((post) => (
+                            <PostCard
+                                key={post.title}
+                                title={post.title}
+                                slug={post.slug}
+                                date={post.slug}
+                                topics={getListOfTopics(post.topics)}
+                                author={getAuthorProperties(post.author)}
+                                img={getImageSource(post.image)}
+                            />
                         ))}
                     </div>
                 </div>
