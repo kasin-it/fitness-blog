@@ -13,6 +13,7 @@ const BlogSearch = dynamic(() => import("@/components/blog-search"), {
     //         Show More
     //     </Skeleton>
     // ),
+    ssr: false,
 })
 
 async function BlogPage() {

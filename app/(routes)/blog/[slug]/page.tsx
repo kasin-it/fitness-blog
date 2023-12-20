@@ -10,6 +10,8 @@ import { Post, Topic } from "@/types/post"
 import { Badge } from "@/components/ui/badge"
 import Container from "@/components/ui/container"
 import { Separator } from "@/components/ui/separator"
+import BlogAuthorInformation from "@/components/blog-author-information"
+import HomeNewsletter from "@/components/home-newsletter"
 import PostRichText from "@/components/post-rich-text"
 
 export const revalidate = 86400
@@ -56,8 +58,14 @@ async function SinglePostPage({ params }: { params: { slug: string } }) {
                     height={0}
                     style={{ height: "auto" }}
                     alt={post.title}
+                    className="rounded-lg"
                 />
-                <PostRichText document={post.content} />
+                <BlogAuthorInformation author={post.author} />
+                <div className="px-3 sm:px-0">
+                    <PostRichText document={post.content} />
+                </div>
+                <BlogAuthorInformation author={post.author} />
+                <HomeNewsletter />
             </Container>
         </section>
     )

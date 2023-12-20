@@ -151,28 +151,30 @@ function BlogSearch({ topics }: BlogSearchProps) {
                 <>
                     <div className="flex flex-col items-center justify-center gap-5 xl:justify-between">
                         <Input
-                            className="w-full max-w-lg"
+                            className="w-full"
                             placeholder="Search..."
                             type="search"
                             id="search"
                             onChange={(e) => handleQueryChange(e.target.value)}
                         />
-                        <p className="text-md font-bold">Topics:</p>
-                        <div className="flex max-w-xl flex-wrap justify-center gap-2 px-2">
-                            {topics.map((topic: Topic) => (
-                                <Badge
-                                    key={topic.name}
-                                    className={cn(
-                                        "cursor-pointer rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400",
-                                        topicFilter?.name == topic.name
-                                            ? "opacity-50"
-                                            : null
-                                    )}
-                                    onClick={() => handleTopicClick(topic)}
-                                >
-                                    {topic.name}
-                                </Badge>
-                            ))}
+                        <div className="flex w-full">
+                            <p className="text-md font-bold">Topics:</p>
+                            <div className="flex max-w-xl flex-wrap justify-center gap-2 px-2">
+                                {topics.map((topic: Topic) => (
+                                    <Badge
+                                        key={topic.name}
+                                        className={cn(
+                                            "cursor-pointer rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400",
+                                            topicFilter?.name == topic.name
+                                                ? "opacity-50"
+                                                : null
+                                        )}
+                                        onClick={() => handleTopicClick(topic)}
+                                    >
+                                        {topic.name}
+                                    </Badge>
+                                ))}
+                            </div>
                         </div>
                     </div>
                     {!isSearchResultsHidden && (
