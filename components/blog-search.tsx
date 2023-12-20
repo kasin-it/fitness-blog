@@ -154,9 +154,11 @@ function BlogSearch({ topics }: BlogSearchProps) {
                         <X />
                     </div>
                 </div>
-                <div className="flex w-full">
-                    <p className="text-md font-bold">Topics:</p>
-                    <div className="flex flex-wrap justify-center gap-2 px-2">
+                <div className="flex w-full flex-col items-center justify-center gap-5">
+                    <p className="text-md w-full text-left font-bold">
+                        Topics:
+                    </p>
+                    <div className="justify-left flex w-full flex-wrap gap-2 px-2">
                         {topics.map((topic: Topic) => (
                             <Badge
                                 key={topic.name}
