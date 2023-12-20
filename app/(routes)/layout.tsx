@@ -3,13 +3,15 @@ import { Roboto_Condensed } from "next/font/google"
 
 import "../globals.css"
 
+import dynamic from "next/dynamic"
 import { ThemeProvider } from "@/providers/theme-provider"
 import { Toaster } from "@/providers/toaster"
 
 import { cn } from "@/lib/utils"
 import Footer from "@/components/Footer/footer"
 import Navbar from "@/components/Navbar/navbar"
-import TailwindIndicator from "@/components/tailwind-indicator"
+
+const MainProvider = dynamic(() => import("@/providers/main-provider"), {})
 
 const font = Roboto_Condensed({ subsets: ["latin"] })
 
@@ -24,7 +26,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="pl" suppressHydrationWarning>
             <body className={cn(font.className, "px-2 md:px-10")}>
                 <ThemeProvider
                     attribute="class"
@@ -36,8 +38,8 @@ export default function RootLayout({
                     <Navbar />
                     {children}
                     <Footer />
+                    <MainProvider />
                 </ThemeProvider>
-                <TailwindIndicator />
             </body>
         </html>
     )

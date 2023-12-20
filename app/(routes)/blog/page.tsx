@@ -3,6 +3,7 @@ import { getPosts } from "@/actions/get-posts"
 import { getTopics } from "@/actions/get-topics"
 
 import Container from "@/components/ui/container"
+import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import BlogAllPosts from "@/components/blog-all-posts"
 import BlogFeaturedPosts from "@/components/blog-featured-posts"
@@ -24,6 +25,8 @@ async function BlogPage() {
     return (
         <main className="flex w-full justify-center">
             <Container className="space-y-10">
+                <h1 className="text-4xl font-bold">Blog</h1>
+                <Separator />
                 <BlogSearch topics={topics} />
                 <BlogFeaturedPosts featuredPosts={featuredPosts} />
                 <BlogAllPosts allPosts={allPosts} />
