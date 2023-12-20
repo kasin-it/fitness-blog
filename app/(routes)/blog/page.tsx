@@ -9,11 +9,23 @@ import BlogAllPosts from "@/components/blog-all-posts"
 import BlogFeaturedPosts from "@/components/blog-featured-posts"
 
 const BlogSearch = dynamic(() => import("@/components/blog-search"), {
-    // loading: () => (
-    //     <Skeleton className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400">
-    //         Show More
-    //     </Skeleton>
-    // ),
+    loading: () => (
+        <section className="pt flex w-full flex-col gap-10">
+            <div className="flex flex-col items-center justify-center gap-5 xl:justify-between">
+                <Skeleton className="h-[40px] w-full" />
+                <div className="flex w-full flex-col items-center justify-center gap-5">
+                    <p className="text-md w-full text-left font-bold">
+                        Topics:
+                    </p>
+                    <div className="justify-left flex w-full flex-wrap gap-2 px-2">
+                        {Array.from({ length: 10 }).map((_, idx) => (
+                            <Skeleton className="h-[30px] w-[73px]" key={idx} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    ),
     ssr: false,
 })
 

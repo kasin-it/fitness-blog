@@ -8,11 +8,11 @@ import Container from "@/components/ui/container"
 
 function HomeHero() {
     return (
-        <section className="flex w-full justify-center pt-24">
+        <section className="flex w-full justify-center pt-10 lg:pt-24">
             <Container>
                 <div className="flex flex-col items-center gap-10 lg:flex-row">
                     <div className="flex flex-col gap-10">
-                        <h1 className="text-5xl font-bold italic text-green-600 md:text-5xl xl:text-7xl">
+                        <h1 className=" text-4xl font-bold italic text-green-600 sm:text-5xl xl:text-7xl">
                             Hi im [your name],
                             <br /> im a fitness coach
                         </h1>

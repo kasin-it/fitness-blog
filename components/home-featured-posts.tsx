@@ -12,7 +12,7 @@ interface HomeFeaturedPostsProps {
 
 function HomeFeaturedPosts({ featuredPosts }: HomeFeaturedPostsProps) {
     return (
-        <section className="flex w-full justify-center px-10 md:px-0">
+        <section className="flex w-full justify-center md:px-0">
             <Container>
                 <div className="w-full space-y-12">
                     <h1 className="text-4xl font-bold italic text-green-600 lg:text-7xl">

@@ -6,7 +6,7 @@ import Container from "@/components/ui/container"
 
 function ContactSection() {
     return (
-        <section className="flex w-full justify-center px-10 md:px-0">
+        <section className="flex w-full justify-center">
             <Container>
                 <div className="w-full space-y-12 border border-teal-400 px-10 py-8">
                     <h1 className="text-4xl font-bold italic text-green-600">

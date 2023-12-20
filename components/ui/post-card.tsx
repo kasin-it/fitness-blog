@@ -36,7 +36,7 @@ function PostCard({ post }: PostCardProps) {
                         <Image
                             src={"http:" + post.image.fields.file.url}
                             height={0}
-                            width={600}
+                            width={1000}
                             style={{ height: "auto" }}
                             alt="gym"
                             className="transition duration-300 hover:scale-110"
