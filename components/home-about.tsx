@@ -7,7 +7,7 @@ import Container from "@/components/ui/container"
 
 function HomeAbout() {
     return (
-        <section className="flex w-full justify-center px-10 pt-48 md:px-0">
+        <section className="flex w-full justify-center px-10 md:px-0">
             <Container>
                 <div className="space-y-12">
                     <h1 className="text-4xl font-bold italic text-green-600 lg:text-7xl">

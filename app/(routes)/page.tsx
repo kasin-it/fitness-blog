@@ -13,13 +13,13 @@ export default async function Home() {
     const testimonials = await getTestimonials({ limit: 3 })
 
     return (
-        <main>
+        <main className="flex flex-col gap-48">
             <HomeHero />
             <HomeAbout />
             <HomeFeaturedPosts featuredPosts={featuredPosts} />
+            <HomeNewsletter />
             <HomeTestimonials testimonials={testimonials} />
             <ContactSection />
-            <HomeNewsletter />
         </main>
     )
 }
