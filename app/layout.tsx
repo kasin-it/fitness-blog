@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Roboto_Condensed } from "next/font/google"
 
-import "../globals.css"
+import "./globals.css"
 
 import dynamic from "next/dynamic"
 import { ThemeProvider } from "@/providers/theme-provider"
