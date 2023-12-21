@@ -25,7 +25,9 @@ export default function Error({
 
             <Image src={error_img} width={600} height={600} alt="error 404" />
 
-            <Button onClick={() => reset()}>Try again</Button>
+            <Button aria-label="reset" onClick={() => reset()}>
+                Try again
+            </Button>
         </div>
     )
 }

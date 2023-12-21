@@ -62,7 +62,7 @@ function PostRichText({ document }: PostRichTextProps) {
             ),
             [BLOCKS.EMBEDDED_ASSET]: (node: any, children: any) => (
                 <Image
-                    src={"http:" + `${node.data.target.fields.file.url}`}
+                    src={"https:" + `${node.data.target.fields.file.url}`}
                     height={node.data.target.fields.file.details.image.height}
                     width={node.data.target.fields.file.details.image.width}
                     alt={node.data.target.fields.description}

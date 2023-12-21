@@ -25,7 +25,10 @@ function MobileNavigation({ className }: MobileNavigationProps) {
         <NavigationMenu className={className}>
             <NavigationMenuList>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger className="px-0">
+                    <NavigationMenuTrigger
+                        className="px-0"
+                        aria-label="hamburger menu"
+                    >
                         <Menu className="h-9 w-9" strokeWidth={0.8} />
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="px-12 py-6">

@@ -106,7 +106,11 @@ const NewsletterForm = () => {
                 </div>
             </div>
             <div className="w-full">
-                <Button className="w-full" disabled={loading}>
+                <Button
+                    className="w-full"
+                    disabled={loading}
+                    aria-label="Sign up"
+                >
                     Sign up
                 </Button>
             </div>

@@ -18,6 +18,7 @@ function NavRoutes({ className }: NavRoutesProps) {
                 <li key={route.label}>
                     <Link
                         href={route.href}
+                        aria-label={route.label}
                         className={cn(
                             "font-medium transition-colors duration-200 hover:text-green-500",
                             pathname == route.href

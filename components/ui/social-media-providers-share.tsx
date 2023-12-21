@@ -40,15 +40,20 @@ function SocialMediaProvidersShare({
 
     return (
         <div className={className}>
-            <TwitterShareButton url={window.location.href}>
+            <TwitterShareButton url={window.location.href} aria-label="twitter">
                 <XIcon size={32} round />
             </TwitterShareButton>
-            <FacebookMessengerShareButton url={window.location.href} appId="df">
+            <FacebookMessengerShareButton
+                url={window.location.href}
+                appId="df"
+                aria-label="facebook"
+            >
                 <FacebookIcon size={32} round />
             </FacebookMessengerShareButton>
             <Button
+                aria-label="copy to clipboard"
                 variant={"outline"}
-                className="flex h-[36px] w-[36px] items-center justify-center rounded-full p-0"
+                className="flex h-8 w-8 items-center justify-center rounded-full p-0"
                 onClick={handleCopyToClipboard}
             >
                 <Link className="h-4 w-4" />

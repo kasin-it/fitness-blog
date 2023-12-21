@@ -23,8 +23,9 @@ function HomeTestimonialsItem({ testimonial }: HomeTestimonialsItemProps) {
                         <Avatar className="h-[80px] w-[80px]">
                             <AvatarImage
                                 src={
-                                    "http:" + testimonial.image.fields.file.url
+                                    "https:" + testimonial.image.fields.file.url
                                 }
+                                alt={testimonial.name}
                             />
                             <AvatarFallback>
                                 {testimonial.name[0]}

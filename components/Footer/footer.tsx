@@ -31,7 +31,7 @@ const FooterSection = ({ section, links }: FooterSectionInterface) => (
 const SocialIcons = () => (
     <div className="inline-flex gap-x-5 text-2xl">
         {SOCIAL_MEDIA_PROVIDERS_ICONS.map((provider) => (
-            <Link key={provider.provider} href={provider.href}>
+            <Link key={provider.provider} href={provider.href} aria-label={provider.provider}>
                 {provider.src}
             </Link>
         ))}

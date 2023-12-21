@@ -151,11 +151,11 @@ const ContactForm = () => {
                 </div>
             </div>
             <div>
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="emaile">Email</Label>
 
                 <div className="relative">
                     <Input
-                        id="email"
+                        id="emaile"
                         placeholder="JohnWick33@mail.com"
                         type="email"
                         autoCapitalize="none"
@@ -222,7 +222,7 @@ const ContactForm = () => {
                 </div>
             </div>
             <div className="w-full">
-                <Button className="w-full" disabled={loading}>
+                <Button className="w-full" disabled={loading} aria-label="Send">
                     Send
                 </Button>
             </div>

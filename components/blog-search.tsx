@@ -204,7 +204,12 @@ function BlogSearch({ topics }: BlogSearchProps) {
                         {isLoadingMore && renderPostsSkeletons()}
                     </div>
                     {fetchMore && (
-                        <Button onClick={handleFetchMore}>See More</Button>
+                        <Button
+                            aria-label="fetch more"
+                            onClick={handleFetchMore}
+                        >
+                            See More
+                        </Button>
                     )}
                 </>
             )}

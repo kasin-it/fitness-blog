@@ -55,12 +55,14 @@ async function SinglePostPage({ params }: { params: { slug: string } }) {
                 ))}
                 <Separator />
                 <Image
-                    src={"http:" + post.image.fields.file.url}
+                    src={"https:" + post.image.fields.file.url}
                     width={1165}
                     height={0}
                     style={{ height: "auto" }}
                     alt={post.title}
                     className="rounded-lg"
+                    loading="eager"
+                    priority
                 />
                 <BlogAuthorInformation author={post.author} />
                 <div className="px-3 sm:px-0">

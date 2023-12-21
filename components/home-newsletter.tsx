@@ -1,8 +1,20 @@
-import NewsletterForm from "@/forms/newsletter-form"
+import dynamic from "next/dynamic"
 
 import Container from "@/components/ui/container"
 
+import { Skeleton } from "./ui/skeleton"
+
 function HomeNewsletter() {
+    const NewsletterForm = dynamic(() => import("@/forms/newsletter-form"), {
+        loading: () => (
+            <div className="flex w-full flex-col gap-5">
+                <Skeleton className="h-[50px] w-full" />
+                <Skeleton className="h-[50px] w-full" />
+            </div>
+        ),
+        ssr: false,
+    })
+
     return (
         <section className="flex w-full justify-center">
             <Container>

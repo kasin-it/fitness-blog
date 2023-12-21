@@ -34,7 +34,7 @@ function PostCard({ post }: PostCardProps) {
                 {post.image?.fields.file.url && (
                     <div className="overflow-hidden">
                         <Image
-                            src={"http:" + post.image.fields.file.url}
+                            src={"https:" + post.image.fields.file.url}
                             height={0}
                             width={1000}
                             style={{ height: "auto" }}
@@ -64,10 +64,13 @@ function PostCard({ post }: PostCardProps) {
                                 <TooltipTrigger>
                                     <Avatar>
                                         <AvatarImage
+                                            width={100}
+                                            height={100}
                                             src={
                                                 post.author?.fields.image.fields
                                                     .file.url
                                             }
+                                            alt={post.author.fields.name}
                                         />
                                         <AvatarFallback>
                                             {post.author?.fields.name[0]}

@@ -34,18 +34,21 @@ function BlogAuthorInformation({ author }: BlogAuthorInformationProps) {
         <div className="flex w-full flex-col items-center justify-between rounded-lg bg-gray-100 px-7 py-6 sm:flex-row">
             <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
-                    <AvatarImage src={author.fields.image.fields.file.url} />
+                    <AvatarImage
+                        src={author.fields.image.fields.file.url}
+                        alt={author.fields.name}
+                    />
                     <AvatarFallback>{author?.fields.name[0]}</AvatarFallback>
                 </Avatar>
                 <div>
-                    <p className="text-sm text-muted-foreground">Posted by:</p>
+                    <p className="text-sm text-gray-600">Posted by:</p>
                     <h1 className="text-xl font-semibold text-black dark:text-primary-foreground">
                         {author.fields.name}
                     </h1>
                 </div>
             </div>
             <div className="flex flex-col items-center gap-2 sm:flex-row">
-                <p className="w-full border-b border-muted-foreground py-1 text-center text-lg text-muted-foreground sm:w-auto sm:border-b-0 sm:border-r sm:pr-2 sm:text-left">
+                <p className="w-full border-b border-muted-foreground py-1 text-center text-lg text-gray-600 sm:w-auto sm:border-b-0 sm:border-r sm:pr-2 sm:text-left">
                     Share
                 </p>
 

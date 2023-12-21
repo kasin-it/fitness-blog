@@ -23,6 +23,7 @@ function ContactPage() {
                                 <Link
                                     key={provider.provider}
                                     href={provider.href}
+                                    aria-label={provider.provider}
                                 >
                                     {provider.src}
                                 </Link>
