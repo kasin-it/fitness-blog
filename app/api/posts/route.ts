@@ -2,8 +2,6 @@ import { createClient } from "contentful"
 
 import { Post, Topic } from "@/types/post"
 
-import { Author } from "./../../../types/post"
-
 const client = createClient({
     space: process.env.CONTENFUL_SPACE_ID || "",
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || "",
@@ -19,6 +17,7 @@ export async function GET(request: Request) {
         content_type: "post",
         skip: page * 10,
         query: query,
+        limit: 10,
     })
 
     const isMoreToFetch =
@@ -31,17 +30,20 @@ export async function GET(request: Request) {
     }
 
     let posts: Post[] = []
-
-    postsResponse.items.forEach((post) => {
-        // @ts-ignore
-        if (topic && checkIfTopicInPost(post.fields, topic)) {
+    if (topic.length > 0) {
+        postsResponse.items.forEach((post) => {
+            // @ts-ignore
+            if (checkIfTopicInPost(post.fields, topic)) {
+                //@ts-ignore
+                posts.push(post.fields)
+            }
+        })
+    } else {
+        postsResponse.items.forEach((post) => {
             //@ts-ignore
             posts.push(post.fields)
-        } else if (!topic) {
-            // @ts-ignore
-            posts.push(post.fields)
-        }
-    })
+        })
+    }
 
     return Response.json({ posts, isMoreToFetch })
 }

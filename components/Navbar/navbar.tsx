@@ -10,12 +10,10 @@ function Navbar() {
         <div className="flex w-full justify-center py-10">
             <Container>
                 <nav className="flex w-full items-center justify-between">
+                    <MobileNavigation className="block md:hidden" />
                     {LOGO}
                     <NavRoutes className="hidden md:inline-flex" />
-                    <div className="items flex">
-                        <MobileNavigation className="block md:hidden" />
-                        <ModeToggle />
-                    </div>
+                    <ModeToggle />
                 </nav>
             </Container>
         </div>

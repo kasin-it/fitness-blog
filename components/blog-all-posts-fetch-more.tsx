@@ -2,28 +2,21 @@
 
 import { useCallback, useState } from "react"
 import axios from "axios"
+import { Loader2 } from "lucide-react"
 import InfiniteScroll from "react-infinite-scroll-component"
 
 import { Post } from "@/types/post"
 
 import PostCard from "./ui/post-card"
-import { Skeleton } from "./ui/skeleton"
 
 function BlogAllPostsfetchMore() {
     const [posts, setPosts] = useState<Post[]>([])
     const [page, setPage] = useState(1)
-    const [fetchMore, setFetchMore] = useState(false)
-
-    const renderPostsSkeletons = () => {
-        return Array.from({ length: 10 }).map((_, index) => (
-            <Skeleton key={index} className="h-[400px] w-full sm:h-[500px]" />
-        ))
-    }
+    const [fetchMore, setFetchMore] = useState(true)
 
     const fetchMoreData = useCallback(async () => {
         try {
             const params = new URLSearchParams()
-
             params.append("page", page.toString())
 
             const res = await axios.get("/api/posts", { params })
@@ -31,6 +24,7 @@ function BlogAllPostsfetchMore() {
             const { posts, isMoreToFetch } = res.data
             setPosts((prevPosts) => [...prevPosts, ...posts])
             setFetchMore(isMoreToFetch)
+            setPage((prev) => prev + 1)
         } catch (error) {
             console.error("[BLOG] Error fetching more data:", error)
         }
@@ -39,10 +33,12 @@ function BlogAllPostsfetchMore() {
     return (
         <InfiniteScroll
             dataLength={posts.length}
-            next={() => fetchMoreData().then(() => setPage((prev) => prev + 1))}
+            next={() => fetchMoreData()}
             hasMore={fetchMore}
             className="grid place-items-center gap-10 md:grid-cols-2"
-            loader={renderPostsSkeletons()}
+            loader={
+                <Loader2 className="mt-10 h-10 w-10 animate-spin justify-self-center text-muted-foreground" />
+            }
         >
             {posts.map((post: Post) => (
                 <PostCard post={post} key={post.title} />

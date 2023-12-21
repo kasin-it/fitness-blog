@@ -28,7 +28,7 @@ function ArrowUpProvider() {
 
     return (
         <div
-            className="fixed cursor-pointer p-4 text-foreground"
+            className="fixed z-50 cursor-pointer p-4 text-foreground"
             style={{ right: "20px", bottom: "20px" }}
             onClick={handleScrollUp}
         >

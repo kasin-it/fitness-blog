@@ -41,7 +41,9 @@ async function SinglePostPage({ params }: { params: { slug: string } }) {
                     <ArrowLeft />
                     <p>Back to blog</p>
                 </Link>
-                <h1 className="text-7xl font-bold">{post.title}</h1>
+                <h1 className="text-4xl font-bold italic sm:text-5xl xl:text-7xl">
+                    {post.title}
+                </h1>
                 <Separator />
                 {post.topics?.map((topic: Topic) => (
                     <Badge

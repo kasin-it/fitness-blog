@@ -1,18 +1,18 @@
 import dynamic from "next/dynamic"
+import { Loader2 } from "lucide-react"
 
 import { Post } from "@/types/post"
 
 import PostCard from "./ui/post-card"
 import { Separator } from "./ui/separator"
+import { Skeleton } from "./ui/skeleton"
 
 const BlogAllPostsFetchMore = dynamic(
     () => import("@/components/blog-all-posts-fetch-more"),
     {
-        // loading: () => (
-        //     <Skeleton className="rounded-md bg-gray-200 px-3 py-1 text-sm text-gray-700 hover:bg-gray-400">
-        //         Show More
-        //     </Skeleton>
-        // ),
+        loading: () => (
+            <Loader2 className="mt-10 h-10 w-10 animate-spin justify-self-center text-muted-foreground" />
+        ),
         ssr: false,
     }
 )
@@ -22,7 +22,7 @@ interface BlogAllPostsProps {
 
 function BlogAllPosts({ allPosts }: BlogAllPostsProps) {
     return (
-        <section className="flex w-full flex-col gap-10">
+        <section className="flex w-full flex-col items-center gap-10">
             <Separator />
             <h1 className="text-5xl font-bold">All posts</h1>
             <Separator />

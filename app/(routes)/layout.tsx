@@ -11,7 +11,9 @@ import { cn } from "@/lib/utils"
 import Footer from "@/components/Footer/footer"
 import Navbar from "@/components/Navbar/navbar"
 
-const MainProvider = dynamic(() => import("@/providers/main-provider"), {})
+const MainProvider = dynamic(() => import("@/providers/main-provider"), {
+    ssr: true,
+})
 
 const font = Roboto_Condensed({ subsets: ["latin"] })
 

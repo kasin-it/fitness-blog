@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { AlertCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -42,7 +43,13 @@ const NewsletterForm = () => {
         setLoading(true)
 
         try {
+            await axios.post("/api/newsletter", {
+                email: formData.email,
+            })
             reset()
+            toast({
+                description: "You has been signed to newsletter!",
+            })
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -51,9 +58,6 @@ const NewsletterForm = () => {
             })
         } finally {
             setLoading(false)
-            toast({
-                description: "Your message has been sent.",
-            })
         }
     }
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
 import { AlertCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -47,7 +48,16 @@ const ContactForm = () => {
         setLoading(true)
 
         try {
+            await axios.post("/api/contact", {
+                email: formData.email,
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                message: formData.message,
+            })
             reset()
+            toast({
+                description: "Your message has been sent.",
+            })
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -56,9 +66,6 @@ const ContactForm = () => {
             })
         } finally {
             setLoading(false)
-            toast({
-                description: "Your message has been sent.",
-            })
         }
     }
 
